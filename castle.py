@@ -1,8 +1,18 @@
 import sys
 import os
+from sources import add_top
+
+
 usage = "Usage: python3 castle.py <height_1> <height_2>"
+
+list_castle_1 = []
+list_castle_2 = []
+
 def main():
     init()
+    make_castle_1()
+    make_castle_2()
+    print_output(int(sys.argv[1]), int(sys.argv[2]))
     
     
 def init():    
@@ -18,13 +28,20 @@ def init():
     if int(sys.argv[1]) > 100 or int(sys.argv[2]) > 100:
         print (f"Max height 100. {usage}")
         sys.exit(1)
-    print_castle(int(sys.argv[1]), int(sys.argv[2]))
+    
+    
+def make_castle_1():
+    pass
 
-
-
-def print_castle(h_castle_1, h_castle_2):
+def make_castle_2():
+    pass
+    
+def print_output(h_castle_1, h_castle_2):
     print(f"Castle 1 height is {h_castle_1}, Castle 2 height is {h_castle_2}")
     #print(os.get_terminal_size())
+    print(list_castle_1)
+    print(list_castle_2)
+    pass
 
 def height_multiplier():
     multiplier=0.25
