@@ -1,40 +1,44 @@
 import sys
 import os
-from sources import add_top
 
 
 usage = "Usage: python3 castle.py <height_1> <height_2>"
 
 castle_top = [
-    "t1",
-    "t2",
-    "t3",
-    "t4",
-    "t5"
+    "          |>>>      ",
+    "          |         ",
+    "      _  _|_  _     ",
+    "     |;|_|;|_|;|    ",
+    "     \\\.    .  /    ",
+    "      \\\:  .  /     "
 ]
 
+castle_gap = "                    "
+
 castle_middle = [
-    "m1",
-    "m2",
-    "m3"
+    "       ||:   |      ",
+    "       ||:.  |      ",
+    "       ||:  .|      ",
+    "       ||:   |      ",
+    "       ||: , |      ",
+    "       ||:   |      ",
+    "       ||: . |      "
 ]
 
 castle_bottom = [
-    "b1",
-    "b2",
-    "b3",
-    "b4",
-    "b5"
+    "       ||: . |      ",
+    "      _||_   |      ",
+    "_ ---~    ~`---,    "
 ]
 height_castle_1 = 0
 height_castle_2 = 0
 list_castle_1 = []
 list_castle_2 = []
-
+cycle = 0
 def main():
     init()
-    make_castle_1()
-    make_castle_2()
+    make_castle_1(list_castle_1)
+    make_castle_2(list_castle_2)
     print_output(height_castle_1, height_castle_2)
     
     
@@ -56,29 +60,54 @@ def init():
     height_castle_1 = int(sys.argv[1])
     height_castle_2 = int(sys.argv[2])
     
-def make_castle_1():
-    
+def make_castle_1(castle_list):    
+    if height_castle_1 < height_castle_2:    
+        for i in range(0, height_castle_2 - height_castle_1):
+            castle_list.append(castle_gap)
+    add_top(castle_list)
+    for i in range(0, height_castle_1):
+        add_middle(castle_list)
+    add_bottom(castle_list)
     pass
 
-def make_castle_2():
+def make_castle_2(castle_list):
+    if height_castle_2 < height_castle_1:    
+        for i in range(0, height_castle_1 - height_castle_2):
+            castle_list.append(castle_gap)
+    add_top(castle_list)
+    for i in range(0, height_castle_2):
+        add_middle(castle_list)
+    add_bottom(castle_list)    
     pass
     
-def print_output(h_castle_1, h_castle_2):
+def print_output(h_castle_1, h_castle_2):    
+    for i in range(0, len(list_castle_1)):
+        print(list_castle_1[i]+castle_gap+list_castle_2[i])
     print(f"Castle 1 height is {h_castle_1}, Castle 2 height is {h_castle_2}")
-    
-    print(list_castle_1)
-    print(list_castle_2)
+    #print(list_castle_1)
+    #print(list_castle_2)
     pass
 
 def height_multiplier():
-    multiplier=0.25
+    multiplier=1    
     #print(os.get_terminal_size()) 
     # will make it scale to height of the terminal using this and a multiplier
     return multiplier
 
+def add_middle(castle_list):
+    global cycle
+    if cycle >= len(castle_middle):
+        cycle = 0
+    castle_list.append(castle_middle[cycle])
+    cycle += 1
+
 def add_top (castle_list):
     for i in castle_top:
-        castle_list.append(castle_top[i])
+        castle_list.append(i)
+    pass
 
+def add_bottom(castle_list):
+    for i in castle_bottom:
+        castle_list.append(i)
 
 main()
